@@ -17,7 +17,19 @@ namespace PNWResource.API.Controllers
             return Ok(allPlaygrounds);
         }
 
-        [HttpGet("{cityId}")]
+        [HttpGet("{id}")]
+        public ActionResult<PlaygroundDTO> GetPlayground(int id)
+        {
+            var allPlaygrounds = CitiesDataStore.Current.Cities
+                .SelectMany(x => x.Playgrounds)
+                .ToList();
+
+            var playground = allPlaygrounds.FirstOrDefault(x => x.Id == id);
+
+            return Ok(playground);
+        }
+
+        [HttpGet("cities/{cityId}")]
         public ActionResult<List<PlaygroundDTO>> GetCityPlaygrounds(int cityId)
         {
             var cityPlaygrounds = CitiesDataStore.Current.Cities
@@ -26,11 +38,5 @@ namespace PNWResource.API.Controllers
                 .ToList();
             return Ok(cityPlaygrounds);
         }
-
-        //[HttpGet("{id}")]
-        //public ActionResult<PlaygroundDTO> GetPlayground(int id)
-        //{
-            
-        //}
     }
 }
