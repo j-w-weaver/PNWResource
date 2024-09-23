@@ -3,40 +3,41 @@ using PNWResource.API.Models;
 
 namespace PNWResource.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cities/{cityId}/playground")]
     [ApiController]
     public class PlaygroundController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<PlaygroundDTO>> GetAllPlaygrounds()
+        public ActionResult<IEnumerable<PlaygroundDTO>> GetCityPlaygrounds(int cityId)
         {
-            var allPlaygrounds = CitiesDataStore.Current.Cities
-                .SelectMany(x => x.Playgrounds)
-                .ToList();
+            var city = Helpers.GetCity(cityId);
 
-            return Ok(allPlaygrounds);
+            if (city == null)
+            {
+                return NotFound("City was not found.");
+            }
+
+            return Ok(city.Playgrounds);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<PlaygroundDTO> GetPlayground(int id)
+        [HttpGet("{playgroundId}")]
+        public ActionResult<PlaygroundDTO> GetPlayground(int cityId, int playgroundId)
         {
-            var allPlaygrounds = CitiesDataStore.Current.Cities
-                .SelectMany(x => x.Playgrounds)
-                .ToList();
+            var city = Helpers.GetCity(cityId);
 
-            var playground = allPlaygrounds.FirstOrDefault(x => x.Id == id);
+            if (city == null)
+            {
+                return NotFound("City was not found.");
+            }
+
+            var playground = city.Playgrounds.FirstOrDefault(p => p.Id == playgroundId);
+
+            if (playground == null)
+            {
+                return NotFound("Playground not found.");
+            }
 
             return Ok(playground);
         }
-
-        [HttpGet("cities/{cityId}")]
-        public ActionResult<List<PlaygroundDTO>> GetCityPlaygrounds(int cityId)
-        {
-            var cityPlaygrounds = CitiesDataStore.Current.Cities
-                .Where(x => x.Id == cityId)
-                .Select(x => x.Playgrounds)
-                .ToList();
-            return Ok(cityPlaygrounds);
-        }
-    }
+    }    
 }

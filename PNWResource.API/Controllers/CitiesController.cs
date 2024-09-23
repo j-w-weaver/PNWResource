@@ -7,13 +7,8 @@ namespace PNWResource.API.Controllers
     [Route("api/[controller]")]
     public class CitiesController : ControllerBase
     {
-        public CitiesController()
-        {
-
-        }
-
         [HttpGet]
-        public IActionResult GetCities()
+        public ActionResult GetCities()
         {
             var cities = CitiesDataStore.Current.Cities;
             return Ok(cities);

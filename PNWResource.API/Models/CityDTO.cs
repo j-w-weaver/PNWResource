@@ -6,6 +6,6 @@
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public List<PlaygroundDTO> Playgrounds { get; set; }
+        public ICollection<PlaygroundDTO> Playgrounds { get; set; } = new List<PlaygroundDTO>();
     }
 }
