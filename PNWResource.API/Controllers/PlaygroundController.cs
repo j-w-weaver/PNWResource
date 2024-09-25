@@ -98,25 +98,25 @@ namespace PNWResource.API.Controllers
             return NoContent();
         }
 
-        [HttpPatch("{playgroundId}")]
-        public ActionResult PartiallyUpdatePlayground(int cityId, int playgroundId,
-            JsonPatchDocument<PlaygroundForUpdateDTO> jsonPatchDocument)
-        {
-            var city = Helpers.GetCity(cityId);
+        //[HttpPatch("{playgroundId}")]
+        //public ActionResult PartiallyUpdatePlayground(int cityId, int playgroundId,
+        //    JsonPatchDocument<PlaygroundForUpdateDTO> jsonPatchDocument)
+        //{
+        //    var city = Helpers.GetCity(cityId);
 
-            if (city == null)
-            {
-                return NotFound();
-            }
+        //    if (city == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var playground = city.Playgrounds.FirstOrDefault(p => p.Id == playgroundId);
+        //    var playground = city.Playgrounds.FirstOrDefault(p => p.Id == playgroundId);
 
-            if (playground == null)
-            {
-                return NotFound();
-            }
+        //    if (playground == null)
+        //    {
+        //        return NotFound();
+        //    }
 
              
-        }
+        //}
     }    
 }
