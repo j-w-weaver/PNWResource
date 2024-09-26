@@ -2,8 +2,8 @@
 {
     public class CloudMailService : IMailService
     {
-        private string mail_To = "admin@pnwresource.com";
-        private string mail_From = "noreply@pnwresource.com";
+        private string mail_To = string.Empty;
+        private string mail_From = string.Empty;
 
         public CloudMailService(IConfiguration configuration)
         {

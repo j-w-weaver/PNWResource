@@ -37,6 +37,7 @@ builder.Services.AddTransient<IMailService, LocalMailService>();
 #else
 builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
