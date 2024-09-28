@@ -165,7 +165,6 @@ namespace PNWResource.API.Controllers
             playground.Description = playgroundToPatch.Description;
 
             return NoContent();
-
         }
 
         [HttpDelete("{playgroundId}")]
