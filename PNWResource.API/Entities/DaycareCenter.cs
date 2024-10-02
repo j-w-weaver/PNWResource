@@ -12,5 +12,6 @@
 
         // Navigation property
         public City? City { get; set; }
+        public ICollection<DaycareCenterEvent> DaycareCenterEvents { get; set; } = new List<DaycareCenterEvent>();
     }
 }

@@ -15,5 +15,11 @@
 
         // Navigation property
         public City? City { get; set; }
+        public ICollection<LibraryEvent> LibraryEvents { get; set; } = new List<LibraryEvent>();
+        public ICollection<ParkEvent> ParkEvents { get; set; } = new List<ParkEvent>();
+        public ICollection<PlaygroundEvent> PlaygroundEvents { get; set; } = new List<PlaygroundEvent>();
+        public ICollection<SchoolEvent> SchoolEvents { get; set; } = new List<SchoolEvent>();
+        public ICollection<DaycareCenterEvent> DaycareCenterEvents { get; set; } = new List<DaycareCenterEvent>();
+        public ICollection<ZooEvent> ZooEvents { get; set; } = new List<ZooEvent>();
     }
 }

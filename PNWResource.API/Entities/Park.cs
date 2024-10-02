@@ -13,5 +13,7 @@
 
         public int? PlaygroundId { get; set; }
         public Playground? Playground { get; set; }
+
+        public ICollection<ParkEvent> ParkEvents { get; set; } = new List<ParkEvent>();
     }
 }

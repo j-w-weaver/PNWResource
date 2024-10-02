@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
+using PNWResource.API.Data;
 using PNWResource.API.Services;
 using Serilog;
 
@@ -37,6 +39,9 @@ builder.Services.AddTransient<IMailService, LocalMailService>();
 #else
 builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
+
+builder.Services.AddDbContext<PNWResourceDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PNWResourceDbConnectionString")));
 
 var app = builder.Build();
 

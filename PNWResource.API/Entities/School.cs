@@ -12,6 +12,7 @@
 
         // Navigation property
         public City? City { get; set; }
+        public ICollection<SchoolEvent> SchoolEvents { get; set; } = new List<SchoolEvent>();
     }
 
     public enum SchoolType

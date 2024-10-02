@@ -9,5 +9,6 @@
 
         public int? CityId { get; set; }
         public City? City { get; set; }
+        public ICollection<ZooEvent> ZooEvents { get; set; } = new List<ZooEvent>();
     }
 }
