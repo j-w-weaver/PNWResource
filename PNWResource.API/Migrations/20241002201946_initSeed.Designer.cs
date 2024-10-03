@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PNWResource.API.Data;
 
@@ -11,9 +12,11 @@ using PNWResource.API.Data;
 namespace PNWResource.API.Migrations
 {
     [DbContext(typeof(PNWResourceDbContext))]
-    partial class PNWResourceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241002201946_initSeed")]
+    partial class initSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace PNWResource.API.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Libraries");
+                    b.ToTable("Library");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.LibraryEvent", b =>
@@ -219,7 +222,7 @@ namespace PNWResource.API.Migrations
                         .IsUnique()
                         .HasFilter("[PlaygroundId] IS NOT NULL");
 
-                    b.ToTable("Parks");
+                    b.ToTable("Park");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.ParkEvent", b =>
@@ -374,7 +377,7 @@ namespace PNWResource.API.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Schools");
+                    b.ToTable("School");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.SchoolEvent", b =>

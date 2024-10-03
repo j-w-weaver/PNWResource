@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PNWResource.API.Data;
 
@@ -11,9 +12,11 @@ using PNWResource.API.Data;
 namespace PNWResource.API.Migrations
 {
     [DbContext(typeof(PNWResourceDbContext))]
-    partial class PNWResourceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241003192606_fixedMisspelling")]
+    partial class fixedMisspelling
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

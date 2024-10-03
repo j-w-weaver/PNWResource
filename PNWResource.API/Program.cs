@@ -43,6 +43,8 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 builder.Services.AddDbContext<PNWResourceDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PNWResourceDbConnectionString")));
 
+builder.Services.AddScoped<IPNWResourceService, PNWResourceService>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

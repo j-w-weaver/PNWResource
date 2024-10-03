@@ -20,6 +20,69 @@ namespace PNWResource.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<City>()
+                 .HasData(
+                new City()
+                {
+                    Id = 1,
+                    Name = "Portland",
+                    State = "OR"
+                },
+                new City()
+                {
+                    Id = 2,
+                    Name = "Salem",
+                    State = "OR"
+                },
+                new City()
+                {
+                    Id = 3,
+                    Name = "Vancouver",
+                    State = "WA"
+                });
+
+            modelBuilder.Entity<Playground>()
+             .HasData(
+               new Playground()
+               {
+                   Id = 1,
+                   Name = "Adventure Cove",
+                   CityId = 1,
+
+               },
+               new Playground()
+               {
+                   Id = 2,
+                   Name = "Sunny Meadows Park",
+                   CityId = 1,
+               },
+                 new Playground()
+                 {
+                     Id = 3,
+                     Name = "Jungle Jumper Playground",
+                     CityId = 2,
+                 },
+               new Playground()
+               {
+                   Id = 4,
+                   Name = "Splash & Dash Park",
+                   CityId = 2,
+               },
+               new Playground()
+               {
+                   Id = 5,
+                   Name = "Little Explorers Park",
+                   CityId = 3,
+               },
+               new Playground()
+               {
+                   Id = 6,
+                   Name = "Rainbow Slide Haven",
+                   CityId = 3,
+               }
+               );
+
+
             base.OnModelCreating(modelBuilder);
 
             // City -> DaycareCenter

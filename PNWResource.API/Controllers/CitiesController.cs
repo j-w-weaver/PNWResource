@@ -1,30 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PNWResource.API.Entities;
 using PNWResource.API.Models;
+using PNWResource.API.Services;
 
-namespace PNWResource.API.Controllers
+namespace PNWResource.API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class CitiesController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CitiesController : ControllerBase
+    private readonly IPNWResourceService resourceService;
+
+    public CitiesController(IPNWResourceService resourceService)
     {
-        //[HttpGet]
-        //public ActionResult GetCities()
-        //{
-        //    var cities = CitiesDataStore.Current.Cities;
-        //    return Ok(cities);
-        //}
+        this.resourceService = resourceService;
+    }
 
-        //[HttpGet("{id}")]
-        //public ActionResult<CityDTO> GetCity(int id)
-        //{
-        //    var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<CityDTO>>> GetCities()
+    {
+        var cities = await resourceService.GetCitiesAsync();
+        return Ok(cities);
+    }
 
-        //    if (city == null)
-        //    {
-        //        return NotFound();
-        //    }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<City>> GetCity(int id, bool includeEvents)
+    {
+        var city = await resourceService.GetCityAsync(id, includeEvents);
 
-        //    return Ok(city);
-        //}
+        if (city == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(city);
     }
 }
