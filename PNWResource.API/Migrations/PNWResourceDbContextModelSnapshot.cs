@@ -89,21 +89,6 @@ namespace PNWResource.API.Migrations
                     b.ToTable("DaycareCenters");
                 });
 
-            modelBuilder.Entity("PNWResource.API.Entities.DaycareCenterEvent", b =>
-                {
-                    b.Property<int>("DaycareCenterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DaycareCenterId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("DaycareCenterEvent");
-                });
-
             modelBuilder.Entity("PNWResource.API.Entities.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -139,6 +124,74 @@ namespace PNWResource.API.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CityId = 1,
+                            Description = "",
+                            EndDate = new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6249),
+                            Name = "Adventure Cove",
+                            StartDate = new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6212),
+                            TimeEnds = "2:00pm",
+                            TimeStarts = "11:00am"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CityId = 1,
+                            Description = "",
+                            EndDate = new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6255),
+                            Name = "Sunny Meadows Run",
+                            StartDate = new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6254),
+                            TimeEnds = "2:00pm",
+                            TimeStarts = "11:00am"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CityId = 2,
+                            Description = "",
+                            EndDate = new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6258),
+                            Name = "Jungle Jumper Play Time",
+                            StartDate = new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6257),
+                            TimeEnds = "2:00pm",
+                            TimeStarts = "11:00am"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CityId = 2,
+                            Description = "",
+                            EndDate = new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6261),
+                            Name = "Splash & Dash Park & Slide",
+                            StartDate = new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6260),
+                            TimeEnds = "2:00pm",
+                            TimeStarts = "11:00am"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CityId = 3,
+                            Description = "",
+                            EndDate = new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6264),
+                            Name = "Little Explorers Find and Seek",
+                            StartDate = new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6263),
+                            TimeEnds = "2:00pm",
+                            TimeStarts = "11:00am"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CityId = 3,
+                            Description = "",
+                            EndDate = new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6267),
+                            Name = "Rainbow Slide and Dive",
+                            StartDate = new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6266),
+                            TimeEnds = "2:00pm",
+                            TimeStarts = "11:00am"
+                        });
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.Library", b =>
@@ -167,21 +220,6 @@ namespace PNWResource.API.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Libraries");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.LibraryEvent", b =>
-                {
-                    b.Property<int>("LibraryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LibraryId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("LibraryEvent");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.Park", b =>
@@ -220,21 +258,6 @@ namespace PNWResource.API.Migrations
                         .HasFilter("[PlaygroundId] IS NOT NULL");
 
                     b.ToTable("Parks");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.ParkEvent", b =>
-                {
-                    b.Property<int>("ParkId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ParkId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("ParkEvent");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.Playground", b =>
@@ -335,21 +358,6 @@ namespace PNWResource.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PNWResource.API.Entities.PlaygroundEvent", b =>
-                {
-                    b.Property<int>("PlaygroundId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlaygroundId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("PlaygroundEvent");
-                });
-
             modelBuilder.Entity("PNWResource.API.Entities.School", b =>
                 {
                     b.Property<int>("Id")
@@ -375,21 +383,6 @@ namespace PNWResource.API.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Schools");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.SchoolEvent", b =>
-                {
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SchoolId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("SchoolEvent");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.Zoo", b =>
@@ -420,21 +413,6 @@ namespace PNWResource.API.Migrations
                     b.ToTable("Zoos");
                 });
 
-            modelBuilder.Entity("PNWResource.API.Entities.ZooEvent", b =>
-                {
-                    b.Property<int>("ZooId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ZooId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("ZooEvent");
-                });
-
             modelBuilder.Entity("PNWResource.API.Entities.DaycareCenter", b =>
                 {
                     b.HasOne("PNWResource.API.Entities.City", "City")
@@ -443,25 +421,6 @@ namespace PNWResource.API.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("City");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.DaycareCenterEvent", b =>
-                {
-                    b.HasOne("PNWResource.API.Entities.DaycareCenter", "DaycareCenter")
-                        .WithMany("DaycareCenterEvents")
-                        .HasForeignKey("DaycareCenterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PNWResource.API.Entities.Event", "Event")
-                        .WithMany("DaycareCenterEvents")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DaycareCenter");
-
-                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.Event", b =>
@@ -484,25 +443,6 @@ namespace PNWResource.API.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("PNWResource.API.Entities.LibraryEvent", b =>
-                {
-                    b.HasOne("PNWResource.API.Entities.Event", "Event")
-                        .WithMany("LibraryEvents")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PNWResource.API.Entities.Library", "Library")
-                        .WithMany("LibraryEvents")
-                        .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-
-                    b.Navigation("Library");
-                });
-
             modelBuilder.Entity("PNWResource.API.Entities.Park", b =>
                 {
                     b.HasOne("PNWResource.API.Entities.City", "City")
@@ -518,25 +458,6 @@ namespace PNWResource.API.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Playground");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.ParkEvent", b =>
-                {
-                    b.HasOne("PNWResource.API.Entities.Event", "Event")
-                        .WithMany("ParkEvents")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PNWResource.API.Entities.Park", "Park")
-                        .WithMany("ParkEvents")
-                        .HasForeignKey("ParkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-
-                    b.Navigation("Park");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.Playground", b =>
@@ -555,25 +476,6 @@ namespace PNWResource.API.Migrations
                     b.Navigation("Park");
                 });
 
-            modelBuilder.Entity("PNWResource.API.Entities.PlaygroundEvent", b =>
-                {
-                    b.HasOne("PNWResource.API.Entities.Event", "Event")
-                        .WithMany("PlaygroundEvents")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PNWResource.API.Entities.Playground", "Playground")
-                        .WithMany("PlaygroundEvents")
-                        .HasForeignKey("PlaygroundId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-
-                    b.Navigation("Playground");
-                });
-
             modelBuilder.Entity("PNWResource.API.Entities.School", b =>
                 {
                     b.HasOne("PNWResource.API.Entities.City", "City")
@@ -584,25 +486,6 @@ namespace PNWResource.API.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("PNWResource.API.Entities.SchoolEvent", b =>
-                {
-                    b.HasOne("PNWResource.API.Entities.Event", "Event")
-                        .WithMany("SchoolEvents")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PNWResource.API.Entities.School", "School")
-                        .WithMany("SchoolEvents")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-
-                    b.Navigation("School");
-                });
-
             modelBuilder.Entity("PNWResource.API.Entities.Zoo", b =>
                 {
                     b.HasOne("PNWResource.API.Entities.City", "City")
@@ -611,25 +494,6 @@ namespace PNWResource.API.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("City");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.ZooEvent", b =>
-                {
-                    b.HasOne("PNWResource.API.Entities.Event", "Event")
-                        .WithMany("ZooEvents")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PNWResource.API.Entities.Zoo", "Zoo")
-                        .WithMany("ZooEvents")
-                        .HasForeignKey("ZooId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-
-                    b.Navigation("Zoo");
                 });
 
             modelBuilder.Entity("PNWResource.API.Entities.City", b =>
@@ -647,51 +511,6 @@ namespace PNWResource.API.Migrations
                     b.Navigation("Schools");
 
                     b.Navigation("Zoos");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.DaycareCenter", b =>
-                {
-                    b.Navigation("DaycareCenterEvents");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.Event", b =>
-                {
-                    b.Navigation("DaycareCenterEvents");
-
-                    b.Navigation("LibraryEvents");
-
-                    b.Navigation("ParkEvents");
-
-                    b.Navigation("PlaygroundEvents");
-
-                    b.Navigation("SchoolEvents");
-
-                    b.Navigation("ZooEvents");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.Library", b =>
-                {
-                    b.Navigation("LibraryEvents");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.Park", b =>
-                {
-                    b.Navigation("ParkEvents");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.Playground", b =>
-                {
-                    b.Navigation("PlaygroundEvents");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.School", b =>
-                {
-                    b.Navigation("SchoolEvents");
-                });
-
-            modelBuilder.Entity("PNWResource.API.Entities.Zoo", b =>
-                {
-                    b.Navigation("ZooEvents");
                 });
 #pragma warning restore 612, 618
         }

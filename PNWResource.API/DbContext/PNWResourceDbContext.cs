@@ -8,10 +8,10 @@ namespace PNWResource.API.Data
         public DbSet<City> Cities {  get; set; }
         public DbSet<DaycareCenter> DaycareCenters { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<Library> Library { get; set; }
-        public DbSet<Park> Park { get; set; }
+        public DbSet<Library> Libraries { get; set; }
+        public DbSet<Park> Parks { get; set; }
         public DbSet<Playground> Playgrounds { get; set; }
-        public DbSet<School> School { get; set; }
+        public DbSet<School> Schools { get; set; }
         public DbSet<Zoo> Zoos { get; set; }
 
         public PNWResourceDbContext(DbContextOptions<PNWResourceDbContext> options) : base(options)
@@ -82,8 +82,73 @@ namespace PNWResource.API.Data
                }
                );
 
+            modelBuilder.Entity<Event>()
+             .HasData(
+                new Event()
+                {
+                    Id = 1,
+                    Name = "Adventure Cove",
+                    TimeStarts = "11:00am",
+                    TimeEnds = "2:00pm",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(1),
+                    CityId = 1,
 
-            base.OnModelCreating(modelBuilder);
+                },
+                new Event()
+                {
+                    Id = 2,
+                    Name = "Sunny Meadows Run",
+                    TimeStarts = "11:00am",
+                    TimeEnds = "2:00pm",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(1),
+                    CityId = 1,
+                },
+                new Event()
+                {
+                    Id = 3,
+                    Name = "Jungle Jumper Play Time",
+                    TimeStarts = "11:00am",
+                    TimeEnds = "2:00pm",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(1),
+                    CityId = 2,
+                },
+                new Event()
+                {
+                    Id = 4,
+                    Name = "Splash & Dash Park & Slide",
+                    TimeStarts = "11:00am",
+                    TimeEnds = "2:00pm",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(1),
+                    CityId = 2,
+                },
+                new Event()
+                {
+                    Id = 5,
+                    Name = "Little Explorers Find and Seek",
+                    TimeStarts = "11:00am",
+                    TimeEnds = "2:00pm",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(1),
+                    CityId = 3,
+                },
+                new Event()
+                {
+                    Id = 6,
+                    Name = "Rainbow Slide and Dive",
+                    TimeStarts = "11:00am",
+                    TimeEnds = "2:00pm",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(1),
+                    CityId = 3,
+                }
+             );
+
+
+            //base.OnModelCreating(modelBuilder);
 
             // City -> DaycareCenter
             modelBuilder.Entity<City>()
@@ -139,79 +204,7 @@ namespace PNWResource.API.Data
                 .HasOne(p => p.Playground)
                 .WithOne()
                 .HasForeignKey<Park>(p => p.PlaygroundId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            // Library <-> Event (Many-to-Many)
-            modelBuilder.Entity<LibraryEvent>()
-                .HasKey(le => new { le.LibraryId, le.EventId });
-            modelBuilder.Entity<LibraryEvent>()
-                .HasOne(le => le.Library)
-                .WithMany(l => l.LibraryEvents)
-                .HasForeignKey(le => le.LibraryId);
-            modelBuilder.Entity<LibraryEvent>()
-                .HasOne(le => le.Event)
-                .WithMany(e => e.LibraryEvents)
-                .HasForeignKey(le => le.EventId);
-
-            // Park <-> Event (Many-to-Many)
-            modelBuilder.Entity<ParkEvent>()
-                .HasKey(pe => new { pe.ParkId, pe.EventId });
-            modelBuilder.Entity<ParkEvent>()
-                .HasOne(pe => pe.Park)
-                .WithMany(p => p.ParkEvents)
-                .HasForeignKey(pe => pe.ParkId);
-            modelBuilder.Entity<ParkEvent>()
-                .HasOne(pe => pe.Event)
-                .WithMany(e => e.ParkEvents)
-                .HasForeignKey(pe => pe.EventId);
-
-            // Playground <-> Event (Many-to-Many)
-            modelBuilder.Entity<PlaygroundEvent>()
-                .HasKey(pe => new { pe.PlaygroundId, pe.EventId });
-            modelBuilder.Entity<PlaygroundEvent>()
-                .HasOne(pe => pe.Playground)
-                .WithMany(pg => pg.PlaygroundEvents)
-                .HasForeignKey(pe => pe.PlaygroundId);
-            modelBuilder.Entity<PlaygroundEvent>()
-                .HasOne(pe => pe.Event)
-                .WithMany(e => e.PlaygroundEvents)
-                .HasForeignKey(pe => pe.EventId);
-
-            // School <-> Event (Many-to-Many)
-            modelBuilder.Entity<SchoolEvent>()
-                .HasKey(se => new { se.SchoolId, se.EventId });
-            modelBuilder.Entity<SchoolEvent>()
-                .HasOne(se => se.School)
-                .WithMany(s => s.SchoolEvents)
-                .HasForeignKey(se => se.SchoolId);
-            modelBuilder.Entity<SchoolEvent>()
-                .HasOne(se => se.Event)
-                .WithMany(e => e.SchoolEvents)
-                .HasForeignKey(se => se.EventId);
-
-            // DaycareCenter <-> Event (Many-to-Many)
-            modelBuilder.Entity<DaycareCenterEvent>()
-                .HasKey(dce => new { dce.DaycareCenterId, dce.EventId });
-            modelBuilder.Entity<DaycareCenterEvent>()
-                .HasOne(dce => dce.DaycareCenter)
-                .WithMany(d => d.DaycareCenterEvents)
-                .HasForeignKey(dce => dce.DaycareCenterId);
-            modelBuilder.Entity<DaycareCenterEvent>()
-                .HasOne(dce => dce.Event)
-                .WithMany(e => e.DaycareCenterEvents)
-                .HasForeignKey(dce => dce.EventId);
-
-            // Zoo <-> Event (Many-to-Many)
-            modelBuilder.Entity<ZooEvent>()
-                .HasKey(ze => new { ze.ZooId, ze.EventId });
-            modelBuilder.Entity<ZooEvent>()
-                .HasOne(ze => ze.Zoo)
-                .WithMany(z => z.ZooEvents)
-                .HasForeignKey(ze => ze.ZooId);
-            modelBuilder.Entity<ZooEvent>()
-                .HasOne(ze => ze.Event)
-                .WithMany(e => e.ZooEvents)
-                .HasForeignKey(ze => ze.EventId);
+                .OnDelete(DeleteBehavior.SetNull); 
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using PNWResource.API.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using PNWResource.API.Entities;
+using PNWResource.API.Models;
 
 namespace PNWResource.API.Services
 {
@@ -8,6 +10,7 @@ namespace PNWResource.API.Services
         Task<City?> GetCityAsync(int cityId, bool includeEvents);
         Task<IEnumerable<Event?>> GetAllEventsAsync(int cityId);
         Task<Event?> GetEventAsync(int cityId, int eventId);
+
         //Task<IEnumerable<Playground?>> GetPlaygroundsAsync(int cityId);
         //Task<Playground?> GetPlaygroundAsync(int cityId, int playgroundId);
         //Task<IEnumerable<DaycareCenter?>> GetDaycareCentersAsync(int cityId);

@@ -8,6 +8,6 @@
         public bool? HasChildrenSection { get; set; }
         public int? CityId { get; set; }
         public City? City { get; set; }
-        public ICollection<LibraryEvent> LibraryEvents { get; set; } = new List<LibraryEvent>();
+        //public ICollection<LibraryEvent> LibraryEvents { get; set; } = new List<LibraryEvent>();
     }
 }

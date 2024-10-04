@@ -22,15 +22,11 @@ namespace PNWResource.API.Services
         {
             if (includeEvents)
             {
-                var cityWithEvents = context.Cities
-                    .Include(e => e.Events)
-                    .Where(c => c.Id == cityId)
-                    .FirstOrDefault();
-
-                return cityWithEvents;
+                return await context.Cities
+                .Include(c => c.Events)
+                .FirstOrDefaultAsync(c => c.Id == cityId);
             }
-
-            return await context.Cities.FindAsync(cityId);
+            return await context.Cities.FirstOrDefaultAsync(c => c.Id == cityId);
         }
 
         public async Task<IEnumerable<Event?>> GetAllEventsAsync(int cityId)
@@ -38,10 +34,10 @@ namespace PNWResource.API.Services
             return await context.Events.Where(p => p.CityId == cityId).ToListAsync();
         }
 
-        public Task<Event?> GetEventAsync(int cityId, int playgroundId)
+        public async Task<Event?> GetEventAsync(int cityId, int playgroundId)
         {
-            return context.Events
+            return await context.Events
                 .Where(p => p.CityId == cityId && p.Id == playgroundId).FirstOrDefaultAsync();
-        }        
+        }
     }
 }

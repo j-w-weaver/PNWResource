@@ -6,7 +6,7 @@ using PNWResource.API.Entities;
 namespace PNWResource.API.Controllers;
 
 [ApiController]
-[Route("api/cities/{cityId}/events")]
+[Route("api/cities/{cityId}/event")]
 public class EventController : ControllerBase
 {
     private readonly PNWResourceDbContext context;

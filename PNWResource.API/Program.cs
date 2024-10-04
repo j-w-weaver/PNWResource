@@ -33,6 +33,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // Compiler directive setting corrrect mail service depending on environment
 #if DEBUG
 builder.Services.AddTransient<IMailService, LocalMailService>();

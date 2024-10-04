@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using PNWResource.API.Entities;
 using PNWResource.API.Models;
 using PNWResource.API.Services;
@@ -10,21 +11,23 @@ namespace PNWResource.API.Controllers;
 public class CitiesController : ControllerBase
 {
     private readonly IPNWResourceService resourceService;
+    private readonly IMapper mapper;
 
-    public CitiesController(IPNWResourceService resourceService)
+    public CitiesController(IPNWResourceService resourceService, IMapper mapper)
     {
         this.resourceService = resourceService;
+        this.mapper = mapper;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CityDTO>>> GetCities()
     {
-        var cities = await resourceService.GetCitiesAsync();
-        return Ok(cities);
+        var cityEntities = await resourceService.GetCitiesAsync();
+        return Ok(mapper.Map<IEnumerable<CityDTO>>(cityEntities));
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<City>> GetCity(int id, bool includeEvents)
+    public async Task<IActionResult> GetCity(int id, bool includeEvents = false)
     {
         var city = await resourceService.GetCityAsync(id, includeEvents);
 
@@ -33,6 +36,11 @@ public class CitiesController : ControllerBase
             return NotFound();
         }
 
-        return Ok(city);
+        if (includeEvents)
+        {
+            return Ok(mapper.Map<CityWithEventsDTO>(city));
+        } 
+
+        return Ok(mapper.Map<CityDTO>(city));
     }
 }

@@ -22,6 +22,6 @@ namespace PNWResource.API.Entities
 
         // Navigation property
         public City? City { get; set; }
-        public ICollection<PlaygroundEvent> PlaygroundEvents { get; set; } = new List<PlaygroundEvent>();
+        //public ICollection<PlaygroundEvent> PlaygroundEvents { get; set; } = new List<PlaygroundEvent>();
     }
 }

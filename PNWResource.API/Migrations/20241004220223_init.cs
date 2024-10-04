@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace PNWResource.API.Migrations
 {
     /// <inheritdoc />
@@ -73,7 +75,7 @@ namespace PNWResource.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Library",
+                name: "Libraries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -85,9 +87,9 @@ namespace PNWResource.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Library", x => x.Id);
+                    table.PrimaryKey("PK_Libraries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Library_Cities_CityId",
+                        name: "FK_Libraries_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
@@ -95,7 +97,7 @@ namespace PNWResource.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "School",
+                name: "Schools",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -107,9 +109,9 @@ namespace PNWResource.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_School", x => x.Id);
+                    table.PrimaryKey("PK_Schools", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_School_Cities_CityId",
+                        name: "FK_Schools_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
@@ -139,103 +141,7 @@ namespace PNWResource.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DaycareCenterEvent",
-                columns: table => new
-                {
-                    DaycareCenterId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DaycareCenterEvent", x => new { x.DaycareCenterId, x.EventId });
-                    table.ForeignKey(
-                        name: "FK_DaycareCenterEvent_DaycareCenters_DaycareCenterId",
-                        column: x => x.DaycareCenterId,
-                        principalTable: "DaycareCenters",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DaycareCenterEvent_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LibraryEvent",
-                columns: table => new
-                {
-                    LibraryId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LibraryEvent", x => new { x.LibraryId, x.EventId });
-                    table.ForeignKey(
-                        name: "FK_LibraryEvent_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_LibraryEvent_Library_LibraryId",
-                        column: x => x.LibraryId,
-                        principalTable: "Library",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SchoolEvent",
-                columns: table => new
-                {
-                    SchoolId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SchoolEvent", x => new { x.SchoolId, x.EventId });
-                    table.ForeignKey(
-                        name: "FK_SchoolEvent_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SchoolEvent_School_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "School",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ZooEvent",
-                columns: table => new
-                {
-                    ZooId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ZooEvent", x => new { x.ZooId, x.EventId });
-                    table.ForeignKey(
-                        name: "FK_ZooEvent_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ZooEvent_Zoos_ZooId",
-                        column: x => x.ZooId,
-                        principalTable: "Zoos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Park",
+                name: "Parks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -249,37 +155,13 @@ namespace PNWResource.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Park", x => x.Id);
+                    table.PrimaryKey("PK_Parks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Park_Cities_CityId",
+                        name: "FK_Parks_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ParkEvent",
-                columns: table => new
-                {
-                    ParkId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ParkEvent", x => new { x.ParkId, x.EventId });
-                    table.ForeignKey(
-                        name: "FK_ParkEvent_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ParkEvent_Park_ParkId",
-                        column: x => x.ParkId,
-                        principalTable: "Park",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -309,40 +191,47 @@ namespace PNWResource.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_Playgrounds_Park_ParkId1",
+                        name: "FK_Playgrounds_Parks_ParkId1",
                         column: x => x.ParkId1,
-                        principalTable: "Park",
+                        principalTable: "Parks",
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PlaygroundEvent",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "Cities",
+                columns: new[] { "Id", "Name", "State" },
+                values: new object[,]
                 {
-                    PlaygroundId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlaygroundEvent", x => new { x.PlaygroundId, x.EventId });
-                    table.ForeignKey(
-                        name: "FK_PlaygroundEvent_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PlaygroundEvent_Playgrounds_PlaygroundId",
-                        column: x => x.PlaygroundId,
-                        principalTable: "Playgrounds",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    { 1, "Portland", "OR" },
+                    { 2, "Salem", "OR" },
+                    { 3, "Vancouver", "WA" }
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_DaycareCenterEvent_EventId",
-                table: "DaycareCenterEvent",
-                column: "EventId");
+            migrationBuilder.InsertData(
+                table: "Events",
+                columns: new[] { "Id", "CityId", "Description", "EndDate", "Name", "StartDate", "TimeEnds", "TimeStarts" },
+                values: new object[,]
+                {
+                    { 1, 1, "", new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6249), "Adventure Cove", new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6212), "2:00pm", "11:00am" },
+                    { 2, 1, "", new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6255), "Sunny Meadows Run", new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6254), "2:00pm", "11:00am" },
+                    { 3, 2, "", new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6258), "Jungle Jumper Play Time", new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6257), "2:00pm", "11:00am" },
+                    { 4, 2, "", new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6261), "Splash & Dash Park & Slide", new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6260), "2:00pm", "11:00am" },
+                    { 5, 3, "", new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6264), "Little Explorers Find and Seek", new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6263), "2:00pm", "11:00am" },
+                    { 6, 3, "", new DateTime(2024, 10, 5, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6267), "Rainbow Slide and Dive", new DateTime(2024, 10, 4, 15, 2, 23, 119, DateTimeKind.Local).AddTicks(6266), "2:00pm", "11:00am" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Playgrounds",
+                columns: new[] { "Id", "Address", "CityId", "DateConstructed", "DateUpdated", "HasBathrooms", "IsPetFriendly", "Name", "ParkId", "ParkId1", "State" },
+                values: new object[,]
+                {
+                    { 1, "", 1, null, null, null, null, "Adventure Cove", null, null, "" },
+                    { 2, "", 1, null, null, null, null, "Sunny Meadows Park", null, null, "" },
+                    { 3, "", 2, null, null, null, null, "Jungle Jumper Playground", null, null, "" },
+                    { 4, "", 2, null, null, null, null, "Splash & Dash Park", null, null, "" },
+                    { 5, "", 3, null, null, null, null, "Little Explorers Park", null, null, "" },
+                    { 6, "", 3, null, null, null, null, "Rainbow Slide Haven", null, null, "" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DaycareCenters_CityId",
@@ -355,36 +244,21 @@ namespace PNWResource.API.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Library_CityId",
-                table: "Library",
+                name: "IX_Libraries_CityId",
+                table: "Libraries",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LibraryEvent_EventId",
-                table: "LibraryEvent",
-                column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Park_CityId",
-                table: "Park",
+                name: "IX_Parks_CityId",
+                table: "Parks",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Park_PlaygroundId",
-                table: "Park",
+                name: "IX_Parks_PlaygroundId",
+                table: "Parks",
                 column: "PlaygroundId",
                 unique: true,
                 filter: "[PlaygroundId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ParkEvent_EventId",
-                table: "ParkEvent",
-                column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlaygroundEvent_EventId",
-                table: "PlaygroundEvent",
-                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Playgrounds_CityId",
@@ -397,19 +271,9 @@ namespace PNWResource.API.Migrations
                 column: "ParkId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_School_CityId",
-                table: "School",
+                name: "IX_Schools_CityId",
+                table: "Schools",
                 column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SchoolEvent_EventId",
-                table: "SchoolEvent",
-                column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ZooEvent_EventId",
-                table: "ZooEvent",
-                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Zoos_CityId",
@@ -417,8 +281,8 @@ namespace PNWResource.API.Migrations
                 column: "CityId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Park_Playgrounds_PlaygroundId",
-                table: "Park",
+                name: "FK_Parks_Playgrounds_PlaygroundId",
+                table: "Parks",
                 column: "PlaygroundId",
                 principalTable: "Playgrounds",
                 principalColumn: "Id",
@@ -429,46 +293,28 @@ namespace PNWResource.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Park_Cities_CityId",
-                table: "Park");
+                name: "FK_Parks_Cities_CityId",
+                table: "Parks");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Playgrounds_Cities_CityId",
                 table: "Playgrounds");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Park_Playgrounds_PlaygroundId",
-                table: "Park");
-
-            migrationBuilder.DropTable(
-                name: "DaycareCenterEvent");
-
-            migrationBuilder.DropTable(
-                name: "LibraryEvent");
-
-            migrationBuilder.DropTable(
-                name: "ParkEvent");
-
-            migrationBuilder.DropTable(
-                name: "PlaygroundEvent");
-
-            migrationBuilder.DropTable(
-                name: "SchoolEvent");
-
-            migrationBuilder.DropTable(
-                name: "ZooEvent");
+                name: "FK_Parks_Playgrounds_PlaygroundId",
+                table: "Parks");
 
             migrationBuilder.DropTable(
                 name: "DaycareCenters");
 
             migrationBuilder.DropTable(
-                name: "Library");
-
-            migrationBuilder.DropTable(
-                name: "School");
-
-            migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Libraries");
+
+            migrationBuilder.DropTable(
+                name: "Schools");
 
             migrationBuilder.DropTable(
                 name: "Zoos");
@@ -480,7 +326,7 @@ namespace PNWResource.API.Migrations
                 name: "Playgrounds");
 
             migrationBuilder.DropTable(
-                name: "Park");
+                name: "Parks");
         }
     }
 }
