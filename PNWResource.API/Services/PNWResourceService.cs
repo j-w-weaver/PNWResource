@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PNWResource.API.Data;
 using PNWResource.API.Entities;
+using PNWResource.API.Models;
 
 namespace PNWResource.API.Services
 {
@@ -38,6 +39,18 @@ namespace PNWResource.API.Services
         {
             return await context.Events
                 .Where(p => p.CityId == cityId && p.Id == playgroundId).FirstOrDefaultAsync();
+        }
+
+        public async Task AddCity(CityToAddDTO cityToAdd)
+        {
+            var city = new City
+            {
+                Name = cityToAdd.Name,
+                State = cityToAdd.State,
+            };
+
+            await context.Cities.AddAsync(city);
+            await context.SaveChangesAsync();
         }
     }
 }

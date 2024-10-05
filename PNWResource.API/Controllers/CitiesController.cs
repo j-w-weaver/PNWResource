@@ -43,4 +43,12 @@ public class CitiesController : ControllerBase
 
         return Ok(mapper.Map<CityDTO>(city));
     }
+
+    [HttpPost]
+    public async Task<ActionResult> AddCity(CityToAddDTO cityToAdd)
+    {
+        await resourceService.AddCity(cityToAdd);
+
+        return NoContent();
+    }
 }
