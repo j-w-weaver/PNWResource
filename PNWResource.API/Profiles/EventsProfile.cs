@@ -7,6 +7,7 @@ namespace PNWResource.API.Profiles
         public EventsProfile()
         {
             CreateMap<Entities.Event, Models.EventDTO>();
+            CreateMap<Models.EventToAddDTO, Entities.Event>();
         }
     }
 }

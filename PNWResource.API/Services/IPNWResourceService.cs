@@ -7,8 +7,11 @@ public interface IPNWResourceService
 {
     Task<IEnumerable<City?>> GetCitiesAsync();
     Task<City?> GetCityAsync(int cityId, bool includeEvents);
-    Task<IEnumerable<Event?>> GetAllEventsAsync(int cityId);
-    Task<Event?> GetEventAsync(int cityId, int eventId);
+    Task<IEnumerable<Event?>> GetCityEventsAsync(int cityId);
+    Task<Event?> GetCityEventAsync(int cityId, int eventId);
+    Task AddEventForCity(int cityId, Event eventToAdd);
+    Task<bool> SaveChangesAsync();
+    Task<bool> CityExists(int cityId);
     Task AddCity(CityToAddDTO city);
 
     //Task<IEnumerable<Playground?>> GetPlaygroundsAsync(int cityId);

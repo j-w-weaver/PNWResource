@@ -30,15 +30,18 @@ namespace PNWResource.API.Services
             return await context.Cities.FirstOrDefaultAsync(c => c.Id == cityId);
         }
 
-        public async Task<IEnumerable<Event?>> GetAllEventsAsync(int cityId)
+        public async Task<IEnumerable<Event?>> GetCityEventsAsync(int cityId)
         {
             return await context.Events.Where(p => p.CityId == cityId).ToListAsync();
         }
 
-        public async Task<Event?> GetEventAsync(int cityId, int playgroundId)
+        public async Task<Event?> GetCityEventAsync(int cityId, int eventId)
         {
+            //var cityEvent = await context.Events
+            //    .Where(e => e.CityId == cityId && e.Id == eventId)
+            //    .FirstOrDefaultAsync();
             return await context.Events
-                .Where(p => p.CityId == cityId && p.Id == playgroundId).FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(e => e.CityId == cityId && e.Id == eventId);
         }
 
         public async Task AddCity(CityToAddDTO cityToAdd)
@@ -51,6 +54,25 @@ namespace PNWResource.API.Services
 
             await context.Cities.AddAsync(city);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<bool> CityExists(int cityId)
+        {
+            return await context.Cities.AnyAsync(c => c.Id == cityId);
+        }
+
+        public async Task AddEventForCity(int cityId, Event eventToAdd)
+        {
+            var city = await GetCityAsync(cityId, false);
+            if (city != null)
+            {
+                city.Events!.Add(eventToAdd);
+            }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await context.SaveChangesAsync() >= 0);
         }
     }
 }

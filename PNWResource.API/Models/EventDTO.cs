@@ -2,6 +2,7 @@
 {
     public class EventDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? TimeStarts { get; set; } = string.Empty;
         public string? TimeEnds { get; set; } = string.Empty;
