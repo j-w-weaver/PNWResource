@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PNWResource.API.Data;
 using PNWResource.API.Entities;
 using PNWResource.API.Models;
@@ -16,7 +17,30 @@ namespace PNWResource.API.Services
 
         public async Task<IEnumerable<City?>> GetCitiesAsync()
         {
-            return await context.Cities.ToListAsync();
+            return await context.Cities.OrderBy(c => c.Name).ToListAsync();
+        }
+
+        public async Task<IEnumerable<City?>> GetCitiesAsync(string? name, string? searchQuery,
+            int pageNumber, int pageSize)
+        {           
+            var collection = context.Cities as IQueryable<City>;
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                name.Trim();
+                collection = collection.Where(c => c.Name == name);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery.Trim();
+                collection = collection.Where(a => a.Name.Contains(searchQuery));
+            }
+
+            return await collection.OrderBy(c => c.Name)
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<City?> GetCityAsync(int cityId, bool includeEvents)
@@ -56,12 +80,12 @@ namespace PNWResource.API.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<bool> CityExists(int cityId)
+        public async Task<bool> CityExistsAsync(int cityId)
         {
             return await context.Cities.AnyAsync(c => c.Id == cityId);
         }
 
-        public async Task AddEventForCity(int cityId, Event eventToAdd)
+        public async Task AddEventForCityAsync(int cityId, Event eventToAdd)
         {
             var city = await GetCityAsync(cityId, false);
             if (city != null)
@@ -73,6 +97,11 @@ namespace PNWResource.API.Services
         public async Task<bool> SaveChangesAsync()
         {
             return (await context.SaveChangesAsync() >= 0);
+        }
+
+        public void DeleteCityEventAsync(Event eventToDelete)
+        {
+            context.Remove(eventToDelete);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace PNWResource.API.Profiles
         public CityProfile()
         {
             CreateMap<Entities.City, Models.CityDTO>();
-            CreateMap<Entities.City, Models.CityWithEventsDTO>().ForMember(dest => dest.Events, opt => opt.MapFrom(src => src.Events));
+            CreateMap<Entities.City, Models.CityWithEventsDTO>();
         }
     }
 }

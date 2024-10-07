@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PNWResource.API.Data;
@@ -26,7 +27,7 @@ public class EventsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Event>>> GetCityEvents(int cityId)
     {
-        if (!await resourceService.CityExists(cityId))
+        if (!await resourceService.CityExistsAsync(cityId))
         {
             logger.LogInformation($"City with ID: {cityId} was not found.");
             return NotFound();
@@ -39,7 +40,7 @@ public class EventsController : ControllerBase
     [HttpGet("{eventId}", Name = "GetCityEvent")]
     public async Task<ActionResult<EventDTO>> GetCityEvent(int cityId, int eventId)
     {
-        if (!await resourceService.CityExists(cityId))
+        if (!await resourceService.CityExistsAsync(cityId))
         {
             logger.LogInformation($"City with ID: {cityId} was not found.");
             return NotFound();
@@ -56,7 +57,7 @@ public class EventsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CreateCityEvent(int cityId, EventToAddDTO eventDTO)
     {
-        if (!await resourceService.CityExists(cityId))
+        if (!await resourceService.CityExistsAsync(cityId))
         {
             logger.LogInformation($"City with ID: {cityId} was not found.");
             return NotFound();
@@ -64,7 +65,7 @@ public class EventsController : ControllerBase
 
         var mappedEventToAdd = mapper.Map<Event>(eventDTO);
 
-        await resourceService.AddEventForCity(cityId, mappedEventToAdd);
+        await resourceService.AddEventForCityAsync(cityId, mappedEventToAdd);
 
         await resourceService.SaveChangesAsync();
 
@@ -76,5 +77,91 @@ public class EventsController : ControllerBase
             eventId = createdEventForCityToReturn.Id
         },
         createdEventForCityToReturn);
+    }
+
+    [HttpPut("{eventId}")]
+    public async Task<ActionResult> UpdateCityEvent(int cityId, int eventId, 
+        EventToUpdateDTO eventToUpdate)
+    {
+        if (!await resourceService.CityExistsAsync(cityId))
+        {
+            return NotFound($"City with the id: {cityId} was not found.");
+        }
+
+        var eventEntity = await resourceService.GetCityEventAsync(cityId, eventId);
+
+        if (eventEntity == null)
+        {
+            return NotFound("not found.");
+        }
+        
+        mapper.Map(eventToUpdate, eventEntity);
+        try
+        {
+            await resourceService.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        
+    }
+
+    [HttpPatch("{eventId}")]
+    public async Task<ActionResult> PatchCityEvent(int cityId, int eventId, 
+        JsonPatchDocument<EventToUpdateDTO> patchDocument)
+    {
+        if (!await resourceService.CityExistsAsync(cityId))
+        {
+            return NotFound();
+        }
+
+        var eventEntity = await resourceService.GetCityEventAsync(cityId, eventId);
+        if (eventEntity == null)
+        {
+            return NotFound();
+        }
+
+        var eventToPatch = mapper.Map<EventToUpdateDTO>(eventEntity);
+        patchDocument.ApplyTo(eventToPatch);
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        if (!TryValidateModel(eventToPatch))
+        {
+            return BadRequest();
+        }
+
+        mapper.Map(eventToPatch, eventEntity);
+        await resourceService.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    [HttpDelete("{eventId}")]
+    public async Task<ActionResult> DeleteEvent(int cityId, int eventId)
+    {
+        if (!await resourceService.CityExistsAsync(cityId))
+        {
+            return NotFound();
+        }
+
+        var eventEntity = await resourceService.GetCityEventAsync(cityId, eventId);
+        if (eventEntity == null)
+        {
+            return NotFound();
+        }
+
+        resourceService.DeleteCityEventAsync(eventEntity);
+
+        logger.LogWarning($"City event: {eventEntity.Name} ahs been deleted.");
+
+        return NoContent();
     }
 }

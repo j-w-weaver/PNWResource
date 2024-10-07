@@ -1,4 +1,5 @@
-﻿using PNWResource.API.Entities;
+﻿
+using PNWResource.API.Entities;
 using PNWResource.API.Models;
 
 namespace PNWResource.API.Services;
@@ -6,12 +7,14 @@ namespace PNWResource.API.Services;
 public interface IPNWResourceService
 {
     Task<IEnumerable<City?>> GetCitiesAsync();
+    Task<IEnumerable<City?>> GetCitiesAsync(string? name, string? searchQuery, int pageNumber, int pageSize);
     Task<City?> GetCityAsync(int cityId, bool includeEvents);
     Task<IEnumerable<Event?>> GetCityEventsAsync(int cityId);
     Task<Event?> GetCityEventAsync(int cityId, int eventId);
-    Task AddEventForCity(int cityId, Event eventToAdd);
+    Task AddEventForCityAsync(int cityId, Event eventToAdd);
+    void DeleteCityEventAsync(Event eventToDelete);
     Task<bool> SaveChangesAsync();
-    Task<bool> CityExists(int cityId);
+    Task<bool> CityExistsAsync(int cityId);
     Task AddCity(CityToAddDTO city);
 
     //Task<IEnumerable<Playground?>> GetPlaygroundsAsync(int cityId);

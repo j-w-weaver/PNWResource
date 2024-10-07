@@ -12,6 +12,7 @@ public class CitiesController : ControllerBase
 {
     private readonly IPNWResourceService resourceService;
     private readonly IMapper mapper;
+    const int maxPageSize = 20;
 
     public CitiesController(IPNWResourceService resourceService, IMapper mapper)
     {
@@ -20,9 +21,14 @@ public class CitiesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CityDTO>>> GetCities()
+    public async Task<ActionResult<IEnumerable<CityDTO>>> GetCities(string? name, string? searchQuery,
+        int pageNumber = 1, int pageSize = 10)
     {
-        var cityEntities = await resourceService.GetCitiesAsync();
+        if (pageNumber > maxPageSize)
+        {
+            pageSize = maxPageSize;
+        }
+        var cityEntities = await resourceService.GetCitiesAsync(name, searchQuery, pageNumber, pageSize);
         return Ok(mapper.Map<IEnumerable<CityDTO>>(cityEntities));
     }
 
