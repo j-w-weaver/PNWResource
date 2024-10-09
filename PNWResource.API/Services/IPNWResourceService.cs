@@ -6,9 +6,10 @@ namespace PNWResource.API.Services;
 
 public interface IPNWResourceService
 {
-    Task<IEnumerable<City?>> GetCitiesAsync();
-    Task<IEnumerable<City?>> GetCitiesAsync(string? name, string? searchQuery, int pageNumber, int pageSize);
-    Task<City?> GetCityAsync(int cityId, bool includeEvents);
+    Task<IEnumerable<City>> GetCitiesAsync();
+    Task<(IEnumerable<City>, PaginationMetadata)> GetCitiesAsync(string? name, string? searchQuery, int pageNumber, 
+        int pageSize);
+    Task<City> GetCityAsync(int cityId, bool includeEvents);
     Task<IEnumerable<Event?>> GetCityEventsAsync(int cityId);
     Task<Event?> GetCityEventAsync(int cityId, int eventId);
     Task AddEventForCityAsync(int cityId, Event eventToAdd);

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PNWResource.API.Entities;
 using PNWResource.API.Models;
 using PNWResource.API.Services;
+using System.Text.Json;
 
 namespace PNWResource.API.Controllers;
 
@@ -28,7 +29,10 @@ public class CitiesController : ControllerBase
         {
             pageSize = maxPageSize;
         }
-        var cityEntities = await resourceService.GetCitiesAsync(name, searchQuery, pageNumber, pageSize);
+        var (cityEntities, paginationMetadata) = await resourceService.GetCitiesAsync(name, searchQuery, pageNumber, pageSize);
+
+        Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
         return Ok(mapper.Map<IEnumerable<CityDTO>>(cityEntities));
     }
 

@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using PNWResource.API.Data;
 using PNWResource.API.Entities;
 using PNWResource.API.Models;
+using System.Linq;
 
 namespace PNWResource.API.Services
 {
@@ -15,12 +16,12 @@ namespace PNWResource.API.Services
             this.context = context;
         }
 
-        public async Task<IEnumerable<City?>> GetCitiesAsync()
+        public async Task<IEnumerable<City>> GetCitiesAsync()
         {
             return await context.Cities.OrderBy(c => c.Name).ToListAsync();
         }
 
-        public async Task<IEnumerable<City?>> GetCitiesAsync(string? name, string? searchQuery,
+        public async Task<(IEnumerable<City>, PaginationMetadata)> GetCitiesAsync(string? name, string? searchQuery,
             int pageNumber, int pageSize)
         {           
             var collection = context.Cities as IQueryable<City>;
@@ -37,10 +38,16 @@ namespace PNWResource.API.Services
                 collection = collection.Where(a => a.Name.Contains(searchQuery));
             }
 
-            return await collection.OrderBy(c => c.Name)
+            var totalItemCount = await collection.CountAsync();
+
+            var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+
+            var collectionToReturn = await collection.OrderBy(c => c.Name)
                 .Skip(pageSize * (pageNumber - 1))
                 .Take(pageSize)
                 .ToListAsync();
+
+            return (collectionToReturn, paginationMetadata);
         }
 
         public async Task<City?> GetCityAsync(int cityId, bool includeEvents)
