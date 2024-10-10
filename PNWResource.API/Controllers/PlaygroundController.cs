@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PNWResource.API.Entities;
 using PNWResource.API.Models;
@@ -8,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 namespace PNWResource.API.Controllers
 {
     [Route("api/cities/{cityId}/playground")]
+    [Authorize]
     [ApiController]
     public class PlaygroundController : ControllerBase
     {

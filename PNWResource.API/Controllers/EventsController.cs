@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,9 @@ using PNWResource.API.Services;
 
 namespace PNWResource.API.Controllers;
 
-[ApiController]
 [Route("api/cities/{cityId}/events")]
+[Authorize]
+[ApiController]
 public class EventsController : ControllerBase
 {
     private readonly IPNWResourceService resourceService;

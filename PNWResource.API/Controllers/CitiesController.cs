@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PNWResource.API.Entities;
 using PNWResource.API.Models;
@@ -8,7 +9,8 @@ using System.Text.Json;
 namespace PNWResource.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Authorize]
+[Route("api/cities")]
 public class CitiesController : ControllerBase
 {
     private readonly IPNWResourceService resourceService;
