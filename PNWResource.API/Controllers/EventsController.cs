@@ -21,9 +21,9 @@ public class EventsController : ControllerBase
 
     public EventsController(IPNWResourceService resourceService, ILogger<PlaygroundController> logger, IMapper mapper)
     {
-        this.resourceService = resourceService;
-        this.logger = logger;
-        this.mapper = mapper;
+        this.resourceService = resourceService ?? throw new ArgumentNullException(nameof(resourceService));
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     [HttpGet]
