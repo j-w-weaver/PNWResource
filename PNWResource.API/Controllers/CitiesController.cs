@@ -19,8 +19,8 @@ public class CitiesController : ControllerBase
 
     public CitiesController(IPNWResourceService resourceService, IMapper mapper)
     {
-        this.resourceService = resourceService;
-        this.mapper = mapper;
+        this.resourceService = resourceService ?? throw new ArgumentNullException(nameof(resourceService));
+        this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     [HttpGet]
